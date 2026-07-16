@@ -127,8 +127,3 @@ npm run dev:full
 This project is developed for educational purposes.
 
 ---
-
-## 👨‍💻 Developer
-
-**Mukthar M J**
-
