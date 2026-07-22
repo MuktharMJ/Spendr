@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { COLORS, FONT, RADIUS, SPACING } from '../lib/constants';
 import { CATEGORIES } from '../lib/categories';
 import { VIBES } from '../lib/vibes';
-import { formatINR, timeAgo, fetchMoneyFact } from '../lib/helpers';
+import { formatINR, timeAgo } from '../lib/helpers';
 import { Expense } from '../lib/storage';
 import ExpenseCard from './ExpenseCard';
 
@@ -13,19 +13,6 @@ interface HomeScreenProps {
 
 export default function HomeScreen({ expenses, onSelectExpense }: HomeScreenProps) {
   const [selectedCategory, setSelectedCategory] = useState('all');
-  const [moneyFact, setMoneyFact] = useState<string | null>(null);
-  const [factLoading, setFactLoading] = useState(false);
-
-  // Day 8 — Money Facts API Banner
-  useEffect(() => {
-    const load = async () => {
-      setFactLoading(true);
-      const fact = await fetchMoneyFact();
-      setMoneyFact(fact);
-      setFactLoading(false);
-    };
-    load();
-  }, []);
 
   const filteredExpenses =
     selectedCategory === 'all'
@@ -52,37 +39,6 @@ export default function HomeScreen({ expenses, onSelectExpense }: HomeScreenProp
         overflowY: 'auto',
       }}
     >
-      {/* Money Facts Banner — Day 8 */}
-      {moneyFact && (
-        <div
-          style={{
-            backgroundColor: COLORS.primarySoft,
-            borderRadius: RADIUS.lg,
-            padding: `${SPACING.md}px ${SPACING.lg}px`,
-            marginBottom: SPACING.lg,
-          }}
-        >
-          <div style={{ color: COLORS.primary, fontSize: FONT.xs, fontWeight: 700, marginBottom: 4 }}>
-            💡 Did you know?
-          </div>
-          <div style={{ color: COLORS.text, fontSize: FONT.sm }}>{moneyFact}</div>
-        </div>
-      )}
-      {factLoading && !moneyFact && (
-        <div
-          style={{
-            backgroundColor: COLORS.surface,
-            borderRadius: RADIUS.lg,
-            padding: `${SPACING.md}px ${SPACING.lg}px`,
-            marginBottom: SPACING.lg,
-            color: COLORS.textDim,
-            fontSize: FONT.sm,
-          }}
-        >
-          Loading a fun fact...
-        </div>
-      )}
-
       {/* Header total */}
       <div style={{ marginBottom: SPACING.lg }}>
         <div style={{ color: COLORS.textMuted, fontSize: FONT.xs, textTransform: 'uppercase', letterSpacing: 1 }}>
