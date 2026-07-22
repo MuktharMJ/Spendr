@@ -14,14 +14,3 @@ export const timeAgo = (timestamp: number): string => {
 export const generateId = (): string =>
   Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
 
-// Money Facts API — Day 8 notes
-export const fetchMoneyFact = async (): Promise<string | null> => {
-  try {
-    const res = await fetch('https://uselessfacts.jsph.pl/api/v2/facts/random');
-    if (!res.ok) return null;
-    const data = await res.json();
-    return data.text ?? null;
-  } catch {
-    return null;
-  }
-};
